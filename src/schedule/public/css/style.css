@@ -206,3 +206,63 @@ body {
     padding: 25px 0;
   }
 }
+
+/* Tablet breakpoint */
+@media screen and (max-width: 768px) {
+  #app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
+
+  #logo {
+    height: 60px;
+    grid-area: 1 / 1 / 2 / 2;
+    gap: 12px;
+  }
+
+  #logo-img {
+    height: 40px;
+  }
+
+  #logo-text {
+    font-size: 1.8rem;
+  }
+
+  #header {
+    grid-area: auto;
+    height: auto;
+    width: 100%;
+  }
+
+  #matches {
+    margin-top: 8px;
+  }
+
+  .match .match-teams {
+    font: 1.4em / calc(60px * 0.75) "Cairo";
+  }
+}
+
+/* Phone breakpoint */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 70%;
+  }
+
+  #matches {
+    padding: 12px 8px;
+  }
+
+  #matches .match {
+    padding: 8px;
+  }
+
+  .match .match-teams {
+    font: 1.2em / calc(50px * 0.75) "Cairo";
+  }
+
+  .title {
+    font: 1.6em/1em "Cairo";
+    left: 20px;
+  }
+}

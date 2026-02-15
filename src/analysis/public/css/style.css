@@ -672,3 +672,140 @@ body {
     display: block;
   }
 }
+
+/* Tablet breakpoint */
+@media screen and (max-width: 768px) {
+  #auto-pick-view {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  #auto-pick-main {
+    min-width: unset;
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+  }
+
+  #team-list-container {
+    min-width: unset;
+    margin-left: 0;
+    padding: 16px;
+    min-height: unset;
+  }
+
+  #auto-pick-side {
+    min-width: unset;
+    min-height: unset;
+    padding: 0 16px;
+  }
+
+  #team-view.side-enabled {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  #side-list {
+    grid-area: auto;
+  }
+
+  #team-selects {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alliance-selects {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .alliance-selects > select {
+    width: 70px;
+  }
+
+  #alliance-vs {
+    text-align: center;
+  }
+
+  #alliance-module-container {
+    flex-direction: column;
+  }
+
+  .alliance-modules {
+    width: 100%;
+  }
+
+  #bubble-sheet-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  #bubble-sheet-controls select {
+    min-width: 100px;
+  }
+
+  #welcome-text {
+    font-size: 2rem;
+  }
+
+  #welcome-subtext {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  #select-teams-text {
+    font-size: 2rem;
+    margin-top: 16px;
+  }
+
+  #event-dropdown {
+    top: 5px;
+    right: 5px;
+  }
+
+  #event-dropdown button {
+    padding: 6px 12px;
+    font-size: small;
+  }
+
+  #match-select-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Phone breakpoint */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 68%;
+  }
+
+  #main-list,
+  #side-list {
+    padding: 12px 0;
+    gap: 12px;
+  }
+
+  .team-container {
+    padding: 10px;
+  }
+
+  .team-container > .team-number {
+    font-size: 1.3rem;
+  }
+
+  .team-container > .team-name {
+    font-size: 1rem;
+  }
+
+  .alliance-selects > select {
+    width: 60px;
+  }
+
+  .sidebar-toggle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+  }
+}

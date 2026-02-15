@@ -424,3 +424,48 @@ body {
     padding: 8px 6px;
   }
 }
+
+/* Phone touch target improvements */
+@media screen and (max-width: 480px) {
+  #menu > * > i {
+    font-size: 2.2rem;
+    padding: 4px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scouter {
+    min-height: 44px;
+  }
+
+  #start-scouting {
+    min-height: 48px;
+    font-size: 1.2em;
+    padding: 10px 20px;
+  }
+
+  #match-list {
+    gap: 6px;
+  }
+
+  .match .match-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Landscape phone fix */
+@media only screen and (max-height: 400px) {
+  #scouters {
+    max-height: 200px;
+    min-height: unset;
+  }
+
+  .scouter {
+    height: 80px;
+    width: 100px;
+  }
+}

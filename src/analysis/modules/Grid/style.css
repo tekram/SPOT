@@ -23,3 +23,19 @@
   box-sizing: border-box;
   border-radius: calc(var(--border-radius) / 2);
 }
+
+@media screen and (max-width: 480px) {
+  .grid.container {
+    width: 98%;
+    padding: 3%;
+    overflow-x: auto;
+  }
+
+  .grid.container > .header {
+    font-size: 0.85em;
+  }
+
+  .table > div {
+    font-size: 0.8em;
+  }
+}

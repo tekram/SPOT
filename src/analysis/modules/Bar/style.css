@@ -5,3 +5,9 @@
   border: 2px solid var(--accent-alt);
   box-sizing: content-box;
 }
+
+@media screen and (max-width: 480px) {
+  .bar.container {
+    width: 98%;
+  }
+}

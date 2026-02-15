@@ -66,3 +66,23 @@
   align-items: center;
   width: 30%;
 }
+
+@media screen and (max-width: 480px) {
+  .column-display.container {
+    width: 95%;
+    padding: 12px 10px;
+  }
+
+  .column-display .displays-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .column-display .team-display-container {
+    width: 45%;
+  }
+
+  .column-display .header {
+    font-size: 1.3em;
+  }
+}

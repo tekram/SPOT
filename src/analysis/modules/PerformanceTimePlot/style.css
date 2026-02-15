@@ -6,3 +6,9 @@
   box-sizing: content-box;
   margin: auto;
 }
+
+@media screen and (max-width: 480px) {
+  .line.container {
+    width: 98% !important;
+  }
+}

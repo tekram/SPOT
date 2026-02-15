@@ -135,3 +135,73 @@
   border-radius: 12px;
   box-shadow: var(--shadow-md);
 }
+
+/* Mobile responsive fixes */
+@media screen and (max-width: 768px) {
+  .qr-scanner {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .result {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .result-divider {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .action-queue {
+    width: 90%;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .qr-container {
+    padding: 12px !important;
+    padding-top: 16px !important;
+  }
+
+  .qr-scanner {
+    width: 95%;
+  }
+
+  .qr-scanner > button,
+  .qr-scanner > input {
+    font: 1.2em/1em Cairo !important;
+    padding: 8px 20px !important;
+  }
+
+  .result {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .result-text {
+    font-size: 16px;
+  }
+
+  .result-divider {
+    width: 95%;
+  }
+
+  .action-queue {
+    width: 95%;
+    padding: 8px 12px;
+  }
+
+  .scanner-button,
+  .scanner-undo {
+    font: 1.2em/1em Cairo;
+    padding: 10px 20px;
+    min-height: 44px;
+    width: 95%;
+  }
+
+  .results {
+    padding: 0 10px;
+  }
+}

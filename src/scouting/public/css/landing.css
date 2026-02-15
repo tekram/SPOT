@@ -264,3 +264,31 @@
   font-size: 0.75rem;
   color: var(--gray);
 }
+
+/* Phone touch target improvements */
+@media screen and (max-width: 480px) {
+  #landing .auth-buttons > div {
+    padding: 8px 16px 8px 4px;
+    min-height: 56px;
+  }
+
+  #landing .auth-buttons > div > i {
+    font-size: 1.5em;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #landing .auth-buttons > div > span {
+    font-size: 1.4em;
+  }
+
+  #landing .sign-in-text {
+    font-size: 2.5rem;
+  }
+
+  #landing .settings-menu {
+    padding: 20px;
+    width: 90vw;
+  }
+}

@@ -229,3 +229,70 @@ input:checked + .slider .off {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* Mobile responsive modal fixes */
+@media screen and (max-width: 768px) {
+  .modal {
+    padding: 24px;
+    width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .modal.large {
+    min-width: unset;
+    min-height: unset;
+    width: 92vw;
+  }
+
+  .modal.medium {
+    min-width: unset;
+    min-height: unset;
+    width: 90vw;
+  }
+
+  .modal.small {
+    min-width: unset;
+    min-height: unset;
+    width: 85vw;
+  }
+
+  .modal > div.header {
+    font-size: 1.8em;
+    line-height: 1.3em;
+  }
+
+  .modal > div.text {
+    font-size: 1.1em;
+  }
+
+  .modal > button {
+    min-height: 44px;
+    font-size: 1.3em;
+    padding: 8px 20px;
+  }
+
+  .modal-close {
+    top: 16px;
+    right: 16px;
+    font-size: 1.8em;
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modal {
+    padding: 16px;
+    width: 94vw;
+  }
+
+  .modal.large,
+  .modal.medium,
+  .modal.small {
+    width: 94vw;
+  }
+
+  .modal > div.header {
+    font-size: 1.5em;
+  }
+}

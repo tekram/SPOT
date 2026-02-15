@@ -145,3 +145,54 @@ body {
     padding: 25px 0;
   }
 }
+
+/* Tablet breakpoint */
+@media screen and (max-width: 768px) {
+  #app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  #logo {
+    height: 60px;
+    grid-area: 1 / 1 / 2 / 2;
+    gap: 12px;
+  }
+
+  #logo-img {
+    height: 40px;
+  }
+
+  #logo-text {
+    font-size: 1.8rem;
+  }
+
+  .team-container {
+    width: 90%;
+  }
+
+  #pick-list {
+    padding-top: 12px;
+    gap: 16px;
+  }
+}
+
+/* Phone breakpoint */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 70%;
+  }
+
+  .team-container {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .team-container > .team-number {
+    font-size: 1.6rem;
+  }
+
+  .team-container > .team-name {
+    font-size: 1.4rem;
+  }
+}
