@@ -38,14 +38,18 @@ async function executePipeline() {
       "endGame",
     );
 
-    tmp.actionQueue.push({
-      id: `${autoData.actionName}` + "_" + `${autoData.action}`,
-      ts: 0,
-    });
-    tmp.actionQueue.push({
-      id: `${endGameData.actionName}` + "_" + `${endGameData.action}`,
-      ts: 0,
-    });
+    if (autoData) {
+      tmp.actionQueue.push({
+        id: `${autoData.actionName}_${autoData.action}`,
+        ts: 0,
+      });
+    }
+    if (endGameData) {
+      tmp.actionQueue.push({
+        id: `${endGameData.actionName}_${endGameData.action}`,
+        ts: 0,
+      });
+    }
   });
 
   /**
@@ -111,7 +115,7 @@ async function executePipeline() {
       if (item.comp_level == "qm" && item.match_number == match) {
         // Get the alliance scores for the inputted color
         const breakdown = item.score_breakdown?.[alliance];
-        if (!breakdown) return;
+        if (!breakdown) continue;
 
         // Go through each item in the breakdown
         for (const [key, value] of Object.entries(breakdown)) {
