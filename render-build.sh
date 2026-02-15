@@ -13,7 +13,7 @@ cat > config/config.json << CONFIGEOF
   },
   "TBA_EVENT_KEY": "${TBA_EVENT_KEY}",
   "VERSION": "1.0",
-  "DEMO": false
+  "DEMO": ${DEMO:-false}
 }
 CONFIGEOF
 
