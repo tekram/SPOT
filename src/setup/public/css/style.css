@@ -1,18 +1,19 @@
 .input {
   background-color: var(--bg-alt);
-  border: black 2px solid;
-  color: black;
+  border: 1.5px solid var(--border-color-strong);
+  color: var(--text);
   cursor: pointer;
   text-align: left;
-  border-radius: var(--border-radius);
+  border-radius: 12px;
   font-size: 1.4em;
-  padding: 8px 12px;
-  transition: 0.3s color, 0.3s border;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
 }
 
 .input:focus {
-  border: var(--accent-alt) 2px solid;
+  border-color: var(--accent-alt);
+  box-shadow: 0 0 0 3px rgba(255, 96, 48, 0.12);
 }
 
 .label {
@@ -20,11 +21,8 @@
   align-self: center;
   margin: 20px 0;
   padding: 16px 0;
-  border-top: 1px solid var(--accent-alt);
-  box-shadow: 0 -6px 10px -10px var(--accent-alt),
-    0 6px 10px -10px var(--accent-alt);
-  border-bottom: 1px solid var(--accent-alt);
-  border-radius: 6px;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
 }
 
 .label:last-child {
@@ -47,7 +45,7 @@
 .input:focus + span,
 .input:valid + span {
   transform: scale(0.75) translate(-20px, -46px);
-  color: black !important;
+  color: var(--accent-alt) !important;
   top: 30px;
 }
 
@@ -88,9 +86,10 @@ video {
 
 #setup-form > div {
   padding: 40px;
-  border: 2px solid var(--accent-alt);
+  border: 1px solid var(--border-color);
   background-color: var(--bg-alt);
   border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -100,17 +99,30 @@ video {
   font-size: 4rem;
   line-height: 1em;
   margin: 40px 0;
+  font-weight: 600;
 }
 
 #submit {
   color: var(--bg-alt);
   background-color: var(--accent-alt);
   font-size: 2em;
+  font-weight: 600;
   line-height: 1em;
   margin: 40px 0;
   border: none;
-  padding: 15px 60px;
+  padding: 16px 48px;
   border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+#submit:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+#submit:active {
+  transform: scale(0.97);
 }
 
 #setup-container {
@@ -132,12 +144,19 @@ video {
 }
 
 .access-input {
-  border-radius: 8px;
-  border: 2px solid var(--text);
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color-strong);
   background-color: var(--bg-alt);
   color: var(--text);
-  padding: 8px 12px;
+  padding: 12px 16px;
   font-size: 1.5em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.access-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(48, 162, 255, 0.12);
 }
 
 .event-number-container {

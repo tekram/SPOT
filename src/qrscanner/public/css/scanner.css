@@ -9,38 +9,43 @@
 }
 
 .qr-scanner {
-  border: 2px solid var(--text) !important;
-  border-radius: 10px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow-sm) !important;
   width: 500px;
   max-width: 750px !important;
 }
 
 .qr-scanner > button {
-  border: 2px solid var(--text) !important;
+  border: none !important;
   background-color: var(--accent) !important;
   color: var(--bg-alt) !important;
-  border-radius: 10px !important;
+  border-radius: var(--border-radius) !important;
   position: absolute !important;
   bottom: -3px !important;
   left: 50% !important;
   transform: translate(-50%, 50%) !important;
   font: 1.4em/1em Cairo !important;
-  padding: 5px 20px !important;
+  font-weight: 600 !important;
+  padding: 8px 24px !important;
   cursor: pointer !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .qr-scanner > input {
-  border: 2px solid var(--text) !important;
+  border: none !important;
   background-color: var(--accent) !important;
   color: var(--bg-alt) !important;
-  border-radius: 10px !important;
+  border-radius: var(--border-radius) !important;
   position: absolute !important;
   bottom: -3px !important;
   left: 50% !important;
   transform: translate(-50%, 50%) !important;
   font: 1.4em/1em Cairo !important;
-  padding: 5px 20px !important;
+  font-weight: 600 !important;
+  padding: 8px 24px !important;
   cursor: pointer !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .results {
@@ -51,12 +56,11 @@
 }
 
 .result {
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   width: 500px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding: 16px;
 }
 
 .result-text {
@@ -68,39 +72,56 @@
   width: 500px;
   box-sizing: border-box;
   border: 1px solid var(--accent-alt);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .action-queue {
   box-sizing: border-box;
-  border: 2px solid var(--accent);
-  padding-left: 10px;
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 10px 16px;
+  border-radius: var(--border-radius);
   margin-top: 10px;
   margin-bottom: 10px;
   width: 500px;
 }
 
 .scanner-button {
-  border: 2px solid var(--text);
+  border: none;
   margin-top: 10px;
   background-color: var(--accent);
   color: var(--bg-alt);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font: 1.4em/1em Cairo;
-  padding: 5px 20px;
+  font-weight: 600;
+  padding: 8px 24px;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.scanner-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .scanner-undo {
-  border: 2px solid var(--text);
+  border: none;
   margin-top: 10px;
   background-color: var(--accent-alt);
   color: var(--bg-alt);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font: 1.4em/1em Cairo;
-  padding: 5px 20px;
+  font-weight: 600;
+  padding: 8px 24px;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.scanner-undo:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .notification {
@@ -108,8 +129,9 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px;
-  background-color: #4caf50;
+  padding: 12px 20px;
+  background-color: var(--green);
   color: white;
-  border-radius: 5px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
 }

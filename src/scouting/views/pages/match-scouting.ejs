@@ -13,6 +13,31 @@ so there might need to be a new button grid state created for the qr code
 also would the qr code show on the scouter end or the admin end and if it's the couter where is the qr code stored
 also would would be the thing that triggers that state to reach its end -->
 
+<!-- Landscape orientation prompt -->
+<div class="orientation-prompt" id="orientationPrompt">
+  <div class="orientation-prompt-content">
+    <div class="orientation-prompt-icon">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <i class="fa-solid fa-arrow-rotate-right"></i>
+    </div>
+    <p class="orientation-prompt-text">Rotate your device to landscape for the best scouting experience.</p>
+    <button class="orientation-prompt-dismiss" id="orientationDismiss">Got it</button>
+  </div>
+</div>
+<script>
+  (function() {
+    var prompt = document.getElementById("orientationPrompt");
+    var dismiss = document.getElementById("orientationDismiss");
+    if (sessionStorage.getItem("orientationDismissed")) {
+      prompt.style.display = "none";
+    }
+    dismiss.addEventListener("click", function() {
+      prompt.style.display = "none";
+      sessionStorage.setItem("orientationDismissed", "1");
+    });
+  })();
+</script>
+
 <script src="/executables.js"></script>
 <script src="/js/match-scouting.js"></script>
 <script src="/js/settingsmenu.js"></script>

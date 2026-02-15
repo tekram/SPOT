@@ -4,12 +4,19 @@ body {
 }
 
 .access-input {
-  border-radius: 8px;
-  border: 2px solid var(--text);
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color-strong);
   background-color: var(--bg-alt);
   color: var(--text);
-  padding: 8px 12px;
+  padding: 12px 16px;
   font-size: 1.5em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.access-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(48, 162, 255, 0.12);
 }
 
 #menu {
@@ -22,10 +29,10 @@ body {
   grid-area: 1 / 1 / 2 / 2;
   background-color: var(--bg-alt);
   opacity: 0;
-  transition: 0.3s visibility, opacity, width;
-  visibility: hidden;
-  border-right: 1px solid var(--text);
   transition: 0.3s all;
+  visibility: hidden;
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
   z-index: 999;
   position: fixed;
   top: 0;
@@ -40,10 +47,12 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 12px;
   margin-bottom: 12px;
   cursor: pointer;
   color: var(--text);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 #menu > * > i {
@@ -73,8 +82,9 @@ body {
 }
 
 #menu-icon-container {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid var(--border-color-strong);
   margin-bottom: 16px;
+  padding-bottom: 4px;
 }
 
 #menu.expanded #menu-icon {
@@ -108,10 +118,12 @@ body {
 }
 
 #scouters {
-  padding: 21px;
-  padding-top: 24px;
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  padding: 24px;
+  padding-top: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-alt);
   position: relative;
   margin-top: 10px;
   min-height: 200px;
@@ -126,19 +138,26 @@ body {
 }
 
 .scouter {
-  height: 150px;
+  height: 160px;
   width: 200px;
-  border-radius: 10px;
-  border: 2px solid var(--text);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
   position: relative;
   color: var(--text);
-  background-color: var(--bg-alt);
+  background-color: var(--bg-elevated);
   font: 1em/1em "Cairo";
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  padding: 6px 25px 0;
+  padding: 8px 25px 0;
+  transition: all 0.2s ease;
+}
+
+.scouter:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .scouter > .scouter-id {
@@ -158,14 +177,14 @@ body {
   left: 50%;
   top: -1px;
   transform: translateX(-50%);
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 12px 12px;
   font-weight: bold;
   font-size: 1.15rem;
   color: var(--bg-alt);
   padding: 0 12px 2px;
   line-height: 1em;
-  background-color: var(--text);
-  border: 2px solid var(--text);
+  background-color: var(--accent);
+  border: none;
 }
 .scouter > .scouter-status {
   font-size: 1.3rem;
@@ -173,24 +192,38 @@ body {
 }
 
 #start-scouting {
-  border: 2px solid var(--text);
+  border: none;
   background-color: var(--accent);
   color: var(--bg-alt);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   position: absolute;
   bottom: -3px;
   left: 50%;
   transform: translate(-50%, 50%);
   font: 1.4em/1em Cairo;
-  padding: 5px 20px;
+  font-weight: 600;
+  padding: 8px 24px;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+#start-scouting:hover {
+  transform: translate(-50%, 50%) translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+#start-scouting:active {
+  transform: translate(-50%, 50%) scale(0.97);
 }
 
 #matches {
   padding: 20px;
   padding-top: 24px;
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-alt);
   position: relative;
   margin-top: 32px;
   min-height: 0;
@@ -199,10 +232,12 @@ body {
 .title {
   position: absolute;
   background-color: var(--bg);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   top: 0px;
   left: 40px;
   font: 2em/1em "Cairo";
+  font-weight: 600;
+  letter-spacing: -0.01em;
   padding: 0 6px;
   transform: translateY(-50%);
 }
@@ -210,17 +245,17 @@ body {
 .demo-label {
   position: absolute;
   background-color: var(--bg);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   top: 0px;
   left: 165px;
   font: 2em/1em "Cairo";
   padding: 0 6px;
   transform: translateY(-50%);
-  color: crimson;
+  color: var(--error, #ff5166);
 }
 
 #small-demo-label {
-  color: crimson;
+  color: var(--error, #ff5166);
 }
 
 #match-list {
@@ -238,10 +273,16 @@ body {
   width: 100%;
   grid-template-columns: calc(0.75 * 80px + 14px) repeat(2, 1fr);
   grid-template-rows: 30% 70%;
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   padding: 10px 15px;
-  background: var(--bg-alt);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+#matches .match:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .match .match-select {
@@ -252,7 +293,7 @@ body {
   background-color: var(--text);
   display: grid;
   place-content: center;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   align-self: center;
 }
 
@@ -288,12 +329,12 @@ body {
 
 .match .match-teams.red {
   background: #ff6666;
-  border-radius: 10px 0 0 10px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 .match .match-teams.blue {
   background: #6666ff;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 @media only screen and (max-height: 500px), screen and (max-width: 700px) {

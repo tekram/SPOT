@@ -32,11 +32,15 @@
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
+  box-shadow: var(--shadow-sm);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 #waiting .gear {
   animation: spin 3200ms ease-in-out infinite;
-  filter: invert(1) brightness(0.35) sepia(1) hue-rotate(180deg) saturate(2);
+  opacity: 0.18;
   height: 0;
   max-height: 500px;
   flex-grow: 1;
@@ -69,15 +73,16 @@
 
 #waiting .hint .hint-text {
   position: absolute;
-  color: black;
+  color: var(--text, black);
   bottom: 0px;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: var(--bg-alt);
+  background-color: var(--bg-elevated);
   max-width: 75%;
-  padding: 0.5em var(--border-radius);
-  border-radius: 0 var(--border-radius);
+  padding: 12px 20px;
+  border-radius: 12px;
   text-align: center;
+  box-shadow: var(--shadow-sm);
   visibility: hidden;
   transition: visibility 0.2s, opacity 0.2s;
   opacity: 0;

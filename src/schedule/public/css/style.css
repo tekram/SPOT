@@ -24,25 +24,32 @@ body {
 }
 
 .access-input {
-  border-radius: 8px;
-  border: 2px solid var(--text);
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color-strong);
   background-color: var(--bg-alt);
   color: var(--text);
-  padding: 8px 12px;
+  padding: 12px 16px;
   font-size: 1.5em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.access-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(48, 162, 255, 0.12);
 }
 /* styling for page header */
 #header {
   background: var(--text);
   height: 100px;
   width: 100px;
-  border-bottom: 0.25vh solid white;
+  border-bottom: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  box-shadow: 0 0 12px -2px #ff6030;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   grid-area: 1 / 2 / 2 / 4;
 }
 /* styling for logo */
@@ -75,8 +82,10 @@ body {
 #matches {
   padding: 20px;
   padding-top: 24px;
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-alt);
   position: relative;
   margin-top: 10px;
   min-height: 0;
@@ -85,10 +94,12 @@ body {
 .title {
   position: absolute;
   background-color: var(--bg);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   top: 0px;
   left: 40px;
   font: 2em/1em "Cairo";
+  font-weight: 600;
+  letter-spacing: -0.01em;
   padding: 0 6px;
   transform: translateY(-50%);
 }
@@ -108,10 +119,16 @@ body {
   width: 100%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 30% 70%;
-  border: 2px solid var(--text);
-  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   padding: 10px 15px;
-  background: var(--bg-alt);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+#matches .match:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .match .match-select {
@@ -122,7 +139,7 @@ body {
   background-color: var(--text);
   display: grid;
   place-content: center;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   align-self: center;
 }
 
@@ -159,12 +176,12 @@ body {
 
 .match .match-teams.red {
   background: #ff6666;
-  border-radius: 10px 0 0 10px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 .match .match-teams.blue {
   background: #6666ff;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 @media screen and (max-width: 1100px) {

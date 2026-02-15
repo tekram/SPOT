@@ -26,13 +26,13 @@ body {
   background: var(--text);
   height: 100px;
   width: 100px;
-  border-bottom: 0.25vh solid white;
+  border-bottom: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  box-shadow: 0 0 12px -2px #ff6030;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   grid-area: 1 / 2 / 2 / 4;
 }
 /* styling for logo */
@@ -59,18 +59,24 @@ body {
 }
 /* styling for buttons  */
 .team-container {
-  border-radius: 16px;
-  border: 2px solid var(--accent-alt);
-  background-color: var(--bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--accent-alt);
+  background-color: var(--bg-elevated);
   padding: 16px;
-  border-top-width: 2px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
-  transition: 0.3s border, 0.3s background-color;
+  transition: all 0.2s ease;
   width: 75%;
   justify-items: center;
+}
+
+.team-container:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 /* team number */
 .team-container > .team-number {
@@ -96,7 +102,8 @@ body {
 /* styling for buttons when selected */
 .team-container.selected {
   background-color: var(--accent-alt);
-  border-top-width: 2px;
+  border-top: 2px solid var(--accent-alt);
+  box-shadow: var(--shadow-md);
 }
 
 .team-container.selected > .team-number,
@@ -109,7 +116,7 @@ body {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  gap: 20px;
+  gap: 24px;
   display: flex;
   flex-direction: column;
   padding-top: 20px;

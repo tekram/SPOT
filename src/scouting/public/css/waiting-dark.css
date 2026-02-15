@@ -33,11 +33,15 @@
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 #waiting .gear {
   animation: spin 3200ms ease-in-out infinite;
-  filter: invert(1) brightness(0.35) sepia(1) hue-rotate(180deg) saturate(2);
+  opacity: 0.14;
   height: 0;
   max-height: 500px;
   flex-grow: 1;
@@ -76,9 +80,10 @@
   transform: translate(-50%, 0);
   background-color: var(--light-blue);
   max-width: 75%;
-  padding: 0.5em var(--border-radius);
-  border-radius: 0 var(--border-radius);
+  padding: 12px 20px;
+  border-radius: 12px;
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
   visibility: hidden;
   transition: visibility 0.2s, opacity 0.2s;
   opacity: 0;

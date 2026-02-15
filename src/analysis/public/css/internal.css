@@ -31,7 +31,11 @@ html {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
+}
+
+::-webkit-scrollbar:hover {
+  width: 8px;
 }
 
 /* Track */
@@ -41,19 +45,12 @@ html {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--orange-light);
-  filter: saturate(0.8);
+  background: var(--border-color-strong);
   transition: 0.2s background;
   border-radius: 999px;
-  width: 4px;
-  border: 3px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-alt);
-  width: 4px;
-  border: 3px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
 }

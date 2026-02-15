@@ -8,6 +8,7 @@ var previousTimer = [];
   config = await config;
   matchScoutingConfig = await matchScoutingConfig;
   //initiate timing
+  const DEBOUNCE_MS = 300;
   var time = matchScoutingConfig.timing.totalTime;
   var teleopTime = 130000;
   var endgameTime = 30000;
@@ -53,6 +54,127 @@ var previousTimer = [];
       .join(" ➔ ");
   }
 
+  function tapFeedback(button) {
+    if (navigator.vibrate) navigator.vibrate(50);
+    button.element.classList.remove("tap-flash");
+    void button.element.offsetWidth;
+    button.element.classList.add("tap-flash");
+  }
+
+  const actionCounts = {};
+
+  function updateBadge(buttonId) {
+    const count = actionCounts[buttonId] || 0;
+    const matchingButtons = buttons.filter(
+      (b) => b.id === buttonId && b.type === "action",
+    );
+    for (const b of matchingButtons) {
+      if (!b._badge) continue;
+      if (count > 0) {
+        b._badge.textContent = count;
+        b._badge.classList.add("visible");
+      } else {
+        b._badge.classList.remove("visible");
+      }
+    }
+  }
+
+  function recalculateBadges() {
+    for (const key in actionCounts) actionCounts[key] = 0;
+    for (const action of actionQueue) {
+      if (!action.temp) {
+        actionCounts[action.id] = (actionCounts[action.id] || 0) + 1;
+      }
+    }
+    const actionButtonIds = new Set(
+      buttons.filter((b) => b.type === "action").map((b) => b.id),
+    );
+    for (const id of actionButtonIds) {
+      updateBadge(id);
+    }
+  }
+
+  function showReviewScreen(onConfirm, onGoBack) {
+    const overlay = document.createElement("div");
+    overlay.classList.add("review-overlay");
+
+    const title = document.createElement("h2");
+    title.textContent = "Match Review";
+    title.classList.add("review-title");
+    overlay.appendChild(title);
+
+    // Build action summary from actionQueue
+    const counts = {};
+    for (const action of actionQueue) {
+      if (!action.temp) {
+        counts[action.id] = (counts[action.id] || 0) + 1;
+      }
+    }
+
+    const summaryContainer = document.createElement("div");
+    summaryContainer.classList.add("review-summary");
+
+    // Get display text mapping from buttons config
+    const buttonDisplayMap = {};
+    for (const b of buttons) {
+      if (b.type === "action") {
+        buttonDisplayMap[b.id] = b.displayText || b.id;
+      }
+    }
+
+    const sortedEntries = Object.entries(counts)
+      .filter(([id]) => id in buttonDisplayMap)
+      .sort((a, b) => b[1] - a[1]);
+
+    if (sortedEntries.length === 0) {
+      const emptyMsg = document.createElement("div");
+      emptyMsg.classList.add("review-empty");
+      emptyMsg.textContent = "No actions recorded.";
+      summaryContainer.appendChild(emptyMsg);
+    } else {
+      for (const [id, count] of sortedEntries) {
+        const row = document.createElement("div");
+        row.classList.add("review-row");
+        const label = document.createElement("span");
+        label.classList.add("review-label");
+        label.textContent = buttonDisplayMap[id];
+        const value = document.createElement("span");
+        value.classList.add("review-value");
+        value.textContent = count;
+        row.appendChild(label);
+        row.appendChild(value);
+        summaryContainer.appendChild(row);
+      }
+    }
+
+    overlay.appendChild(summaryContainer);
+
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("review-buttons");
+
+    const goBackBtn = document.createElement("button");
+    goBackBtn.textContent = "Go Back to Edit";
+    goBackBtn.classList.add("review-btn", "review-btn-back");
+    goBackBtn.addEventListener("click", () => {
+      overlay.remove();
+      onGoBack();
+    });
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "Confirm Submit";
+    confirmBtn.classList.add("review-btn", "review-btn-confirm");
+    confirmBtn.addEventListener("click", () => {
+      overlay.remove();
+      onConfirm();
+    });
+
+    btnContainer.appendChild(goBackBtn);
+    btnContainer.appendChild(confirmBtn);
+    overlay.appendChild(btnContainer);
+
+    document.getElementById("match-scouting").appendChild(overlay);
+  }
+
   //build buttons
   const layers = deepClone(matchScoutingConfig.layout.layers);
   const buttons = layers.flat();
@@ -62,6 +184,10 @@ var previousTimer = [];
     action: (button) => {
       //add an action to the actionQueue
       button.element.addEventListener("click", () => {
+        const now = Date.now();
+        if (button._lastTapTime && now - button._lastTapTime < DEBOUNCE_MS) return;
+        button._lastTapTime = now;
+        tapFeedback(button);
         actionQueue.push({
           id: button.id,
           ts: time,
@@ -78,11 +204,13 @@ var previousTimer = [];
         }
         doExecutables(button);
         updateLastAction();
+        recalculateBadges();
       });
     },
 
     undo: (button) => {
       button.element.addEventListener("click", () => {
+        tapFeedback(button);
         if (
           actionQueue.length > matchScoutingConfig.variables.minOfQueueLength
         ) {
@@ -128,12 +256,17 @@ var previousTimer = [];
         }
         doExecutables(button, time);
         updateLastAction();
+        recalculateBadges();
       });
     },
 
     none: (button) => {
       //add a temporary event to the action queue with no id which will be removed before the action queue is sent
       button.element.addEventListener("click", () => {
+        const now = Date.now();
+        if (button._lastTapTime && now - button._lastTapTime < DEBOUNCE_MS) return;
+        button._lastTapTime = now;
+        tapFeedback(button);
         actionQueue.push({
           id: button.id,
           ts: time,
@@ -151,47 +284,66 @@ var previousTimer = [];
     "match-control": (button) => {
       button.element.innerText = "Start Match";
       button.element.addEventListener("click", async () => {
+        tapFeedback(button);
         // Handle click after timer runs out
         if (time <= 0) {
-          for (const button of buttons) {
-            button.element.classList.add("disabled");
+          for (const btn of buttons) {
+            btn.element.classList.add("disabled");
           }
-          new Popup("notice", "Submitting Data...", 1000);
-          const teamMatchPerformance = new TeamMatchPerformance(actionQueue)
-            .data;
-          await LocalData.storeTeamMatchPerformance(teamMatchPerformance);
 
-          if (await ScoutingSync.sync()) {
-            await ScoutingSync.updateState({
-              status: ScoutingSync.SCOUTER_STATUS.COMPLETE,
-            });
-            window.location.reload();
-          } else {
-            // display QR code
-            const encoder = new QREncoder(); // Updated
-            const dataUrl =
-              await encoder.encodeTeamMatchPerformance(teamMatchPerformance);
-            let qrContainer = document.createElement("div");
-            let qrText = document.createElement("button");
-            let qrImg = document.createElement("img");
+          showReviewScreen(
+            // onConfirm
+            async () => {
+              new Popup("notice", "Submitting Data...", 1000);
+              const teamMatchPerformance = new TeamMatchPerformance(actionQueue)
+                .data;
+              await LocalData.storeTeamMatchPerformance(teamMatchPerformance);
 
-            qrContainer.classList.add("qr-container");
-            qrText.classList.add("qr-text");
-            qrText.classList.add("button-grid");
-            qrImg.classList.add("qr-img");
+              if (await ScoutingSync.sync()) {
+                await ScoutingSync.updateState({
+                  status: ScoutingSync.SCOUTER_STATUS.COMPLETE,
+                });
+                window.location.reload();
+              } else {
+                // display QR code
+                const encoder = new QREncoder();
+                const dataUrl =
+                  await encoder.encodeTeamMatchPerformance(teamMatchPerformance);
+                let qrContainer = document.createElement("div");
+                let qrText = document.createElement("button");
+                let qrImg = document.createElement("img");
 
-            qrImg.src = dataUrl;
-            qrText.innerText = "Tap to Dismiss";
+                qrContainer.classList.add("qr-container");
+                qrText.classList.add("qr-text");
+                qrText.classList.add("button-grid");
+                qrImg.classList.add("qr-img");
 
-            qrContainer.appendChild(qrImg);
-            qrContainer.appendChild(qrText);
-            document.body.appendChild(qrContainer);
+                qrImg.src = dataUrl;
+                qrText.innerText = "Tap to Dismiss";
 
-            qrContainer.addEventListener("click", () => {
-              document.body.removeChild(qrContainer);
-              window.location.reload();
-            });
-          }
+                qrContainer.appendChild(qrImg);
+                qrContainer.appendChild(qrText);
+                document.body.appendChild(qrContainer);
+
+                qrContainer.addEventListener("click", () => {
+                  document.body.removeChild(qrContainer);
+                  window.location.reload();
+                });
+              }
+            },
+            // onGoBack
+            () => {
+              for (const btn of buttons) {
+                btn.element.classList.remove("disabled");
+              }
+              buttons
+                .filter((x) => x.type === "match-control")
+                .forEach((b) => {
+                  b.element.innerText = "Submit Match";
+                });
+            },
+          );
+          return;
         }
 
         if (timerActive) return;
@@ -315,11 +467,26 @@ var previousTimer = [];
       button.element.classList.add("grid-button", ...button.class.split(" "));
       button.element.style.gridArea = button.gridArea.join(" / ");
 
+      // Add count badge for action buttons
+      if (button.type === "action") {
+        const badge = document.createElement("span");
+        badge.classList.add("action-badge");
+        button.element.appendChild(badge);
+        button._badge = badge;
+      }
+
       //apply type to button
       buttonBuilders[button.type](button);
       //add the button to the grid
       grid.appendChild(button.element);
     }
+  }
+
+  // Clean up tap-flash class after animation ends
+  for (const button of buttons) {
+    button.element.addEventListener("animationend", () => {
+      button.element.classList.remove("tap-flash");
+    });
   }
 
   // Expose rebuild function for loadConfig executable
